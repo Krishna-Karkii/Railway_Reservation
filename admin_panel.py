@@ -33,6 +33,7 @@ def admin_dashboard():
             )
             conn.commit()
             st.success("Train added successfully!")
+            st.rerun()
 
         train_id = st.number_input("Train ID to Update/Delete", min_value=1)
         update_field = st.selectbox("Field to Update", ["Train Name", "Source", "Destination", "Seats", "Fare"])
@@ -42,11 +43,13 @@ def admin_dashboard():
             cursor.execute(f"UPDATE trains SET {update_field.lower().replace(' ', '_')} = %s WHERE id = %s", (update_value, train_id))
             conn.commit()
             st.success("Train updated successfully!")
+            st.rerun()
 
         if st.button("Delete Train"):
             cursor.execute("DELETE FROM trains WHERE id = %s", (train_id,))
             conn.commit()
             st.warning("Train deleted!")
+            st.rerun()
 
     elif action == "Manage Reservations":
         st.header("🎫 Reservation Management")

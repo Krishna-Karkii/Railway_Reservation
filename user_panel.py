@@ -43,7 +43,7 @@ def user_dashboard():
                     cursor.execute("UPDATE trains SET seats = seats - %s WHERE id = %s", (seats_to_book, train_id))
                     conn.commit()
 
-                    st.success(f"Ticket booked successfully! Total Fare: ₹{total_fare}")
+                    st.success(f"Ticket booked successfully! Total Fare: NPR {total_fare}")
                 else:
                     st.error("Not enough seats available.")
             else:

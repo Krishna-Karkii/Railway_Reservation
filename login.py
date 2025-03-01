@@ -2,6 +2,7 @@ import streamlit as st
 from database import get_db_connection
 from utils import hash_password, check_password
 
+
 def login():
     """User & Admin Login"""
     st.title("🔐 Login to Railway Reservation System")
@@ -19,7 +20,14 @@ def login():
         if user and check_password(user["password_hash"], password):
             st.session_state["user"] = user
             st.success(f"Welcome, {username}!")
-            st.rerun()
+
+            # Redirect based on role
+            if user["role"] == "admin":
+                st.session_state["page"] = "Admin Panel"
+            else:
+                st.session_state["page"] = "User Panel"
+
+            st.rerun()  # Rerun the app to redirect to the appropriate panel
         else:
             st.error("Invalid username or password!")
 
