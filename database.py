@@ -10,7 +10,7 @@ def get_db_connection():
     )
 
 def initialize_database():
-    """Creates tables if they don’t exist"""
+
     conn = get_db_connection()
     cursor = conn.cursor()
 
@@ -46,12 +46,11 @@ def initialize_database():
         )
     """)
 
-    # Add default admin if not exists
     cursor.execute("SELECT * FROM users WHERE username = 'admin'")
     if not cursor.fetchone():
         cursor.execute(
             "INSERT INTO users (username, password_hash, role) VALUES (%s, %s, %s)",
-            ('admin', 'hashed_admin_password_here', 'admin')
+            ('admin', 'admin123', 'admin')
         )
         conn.commit()
 

@@ -1,3 +1,4 @@
+import mysql.connector
 import streamlit as st
 from database import get_db_connection
 from utils import hash_password, check_password
@@ -5,7 +6,8 @@ from utils import hash_password, check_password
 
 def login():
     """User & Admin Login"""
-    st.title("🔐 Login to Railway Reservation System")
+    st.subheader("Railway Reservation System")
+    st.title("Login")
 
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
@@ -27,18 +29,17 @@ def login():
             else:
                 st.session_state["page"] = "User Panel"
 
-            st.rerun()  # Rerun the app to redirect to the appropriate panel
+            st.rerun()
         else:
             st.error("Invalid username or password!")
 
 def signup():
-    """User & Admin Signup"""
-    st.title("📝 Signup")
+
+    st.title("📝Signup")
 
     username = st.text_input("Create Username")
     password = st.text_input("Create Password", type="password")
     confirm_password = st.text_input("Confirm Password", type="password")
-    role = st.selectbox("Role", ["User", "Admin"])
 
     if st.button("Signup"):
         if password != confirm_password:
@@ -51,11 +52,15 @@ def signup():
         try:
             cursor.execute(
                 "INSERT INTO users (username, password_hash, role) VALUES (%s, %s, %s)",
-                (username, hash_password(password), role.lower())
+                (username, hash_password(password), 'user')  # Role is always 'user'
             )
             conn.commit()
             st.success("Signup successful! Please log in.")
-        except:
-            st.error("Username already exists!")
 
-        conn.close()
+        except mysql.connector.Error as err:
+            if err.errno == 1062:
+                st.error("Username already exists!")
+            else:
+                st.error(f"An error occurred: {err}")
+        finally:
+            conn.close()

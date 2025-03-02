@@ -2,11 +2,9 @@ import hashlib
 from database import get_db_connection
 
 def hash_password(password):
-    """Hashes passwords using SHA-256"""
     return hashlib.sha256(password.encode()).hexdigest()
 
 def check_password(stored_hash, password):
-    """Verifies entered password with stored hash"""
     return stored_hash == hash_password(password)
 
 

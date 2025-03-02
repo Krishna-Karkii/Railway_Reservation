@@ -8,7 +8,7 @@ def admin_dashboard():
         st.warning("Unauthorized! Please log in as admin.")
         return
 
-    st.sidebar.title("🛠 Admin Panel")
+    st.sidebar.title("🛠 Admin")
     action = st.sidebar.selectbox("Choose Action", ["Manage Trains", "Manage Reservations"])
 
     conn = get_db_connection()

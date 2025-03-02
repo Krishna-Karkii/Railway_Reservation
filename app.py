@@ -19,10 +19,9 @@ if st.session_state.get("user") is None:
 else:
     # Show logout button if the user is logged in
     if st.sidebar.button("Logout"):
-        # Clear the session state and redirect to the login page
         st.session_state.clear()
         st.session_state["page"] = "Login"
-        st.rerun()  # Rerun the app to reflect the changes
+        st.rerun()
 
     # Show the appropriate panel based on the user's role
     page = st.session_state["page"]

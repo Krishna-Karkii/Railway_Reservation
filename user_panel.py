@@ -8,7 +8,7 @@ def user_dashboard():
         st.warning("Unauthorized! Please log in as a user.")
         return
 
-    st.sidebar.title("🚆 User Panel")
+    st.sidebar.title("🚆 User")
     action = st.sidebar.selectbox("Choose Action", ["View Trains", "Book a Train", "Cancel Reservation"])
 
     conn = get_db_connection()
