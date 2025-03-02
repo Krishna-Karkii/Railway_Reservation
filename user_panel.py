@@ -42,8 +42,7 @@ def user_dashboard():
                     )
                     cursor.execute("UPDATE trains SET seats = seats - %s WHERE id = %s", (seats_to_book, train_id))
                     conn.commit()
-
-                    st.success(f"Ticket booked successfully! Total Fare: NPR {total_fare}")
+                    st.rerun()
                 else:
                     st.error("Not enough seats available.")
             else:
@@ -66,7 +65,7 @@ def user_dashboard():
                 cursor.execute("DELETE FROM reservations WHERE id = %s", (res_id,))
                 conn.commit()
 
-                st.warning("Reservation canceled successfully!")
+                st.rerun()
             else:
                 st.error("Invalid Reservation ID.")
 

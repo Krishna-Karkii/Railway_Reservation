@@ -17,5 +17,6 @@ def signup(username, password, role='user'):
         conn.commit()
         conn.close()
         return True
+
     except:
         return False
